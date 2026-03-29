@@ -1,0 +1,104 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+.container{
+	margin: 0 auto;
+}
+canvas{
+	display: block;
+}
+#app {
+	max-width:960px;
+	padding:0;
+	margin:0 auto;
+}
+body {
+	overflow-x: hidden;
+}
+.tel {
+	font-size: 2rem;
+}
+.red {
+	background: #f0506e;
+}
+.green {
+	background: #07c160;
+}
+.c_red {
+	color: #f0506e;
+}
+.c_blue {
+	color: #1e87f0;
+}
+.white {
+	color: #ffffff;
+}
+.blue {
+	background: #1e87f0;
+}
+.table {
+	padding:0;
+	margin:0;
+	border-collapse: collapse;
+	border: 0px solid #999999;
+	display: flex;
+	justify-content: space-between;
+	overflow: auto;
+	z-index: 10
+}
+.table-wrapper{
+	min-height: 100%;
+	width: 100%
+}
+detail-main{
+	padding-top: 1.28rem;
+	padding-bottom: 1.28rem;
+	color: #ffffff
+}
+tr,td {
+	display:block
+}
+.left-td {
+	border: 0.5px solid #999999;
+	width: 60px;
+	height: 60px;
+	margin: 0;
+	padding: 0;
+}
+.left-td>img{
+		width: 60px;
+		height: 60px;
+		margin: 0;
+		padding: 0;
+}
+.right-td{
+	width: 30px;
+	height: 30px;
+	border: 0.1px solid #999999;
+	margin: 0;
+	padding: 0;
+}
+.right-tr>.right-td:nth-child(n+1):nth-child(-n+6)>img{
+	width: 30px;
+	height: 30px;
+	margin: 0;
+	padding: 0;
+}
+.right-tr>.right-td:nth-child(n+7):nth-child(-n+12)>img{
+	width: 14.3125px;
+	height: 14.3125px;
+	margin: 0;
+	padding: 0;
+	float: left;
+}
+.b_tl {
+	border: 3px solid #f0506e;
+}
+.p_tl {
+	border: 3px solid #1e87f0;
+}
+.g_tl {
+	border: 3px solid green;
+}
+

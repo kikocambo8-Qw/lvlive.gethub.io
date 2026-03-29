@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from tb.lva-online.vip/bac2/tb1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 Mar 2026 07:08:13 GMT -->
+<head>
+    <meta charset="utf-8" />
+    <!-- <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" /> -->
+    <meta name="viewport" content="user-scalable=no" />
+    <title></title>
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="../../cdn.jsdelivr.net/npm/uikit%403.2.2/dist/css/uikit.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/grid.css" />
+    <!-- UIkit JS -->
+    <script src="../../cdn.jsdelivr.net/npm/uikit%403.2.2/dist/js/uikit.min.js"></script>
+    <script src="../../cdn.jsdelivr.net/npm/uikit%403.2.2/dist/js/uikit-icons.min.js"></script>
+    <script src="js/jsmpeg.min.js"></script>
+    <!-- JQuery JS -->
+    <script src="../../code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+
+<body style="display: block">
+    <!-- APP Mian -->
+    <div id="app">
+        <!-- video-canvas -->
+        <canvas id="video-canvas" style="width: auto; height: atuo;display:none"></canvas>
+        <div
+            uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar uk-width-1-2">
+            <nav class="uk-navbar-container" uk-navbar style="position: relative; z-index: 980">
+                <div class="uk-navbar-left">
+                    <ul class="uk-navbar-nav">
+                        <li class="uk-active">
+                            <span class="board"> 第 <span id="board"></span>-<span id="game"></span> 靴</span><span
+                                class="bet"> 第 <span id="bet"></span> 局</span>
+                        </li>
+                    </ul>
+                </div>
+                <button value="close" onclick="show()" class="uk-navbar-right">开/关视频</button>
+            </nav>
+        </div>
+        <form class="uk-text-center uk-margin-small-top uk-margin-small-bottom uk-padding-remove" uk-grid id="post1"
+            method="post">
+            <div class="uk-width-1-2 uk-first-column uk-margin-small-top">
+                <div
+                    class="p_tl uk-margin-small-left uk-margin-small-right uk-card uk-card-default uk-card-body uk-padding-small uk-h1">
+                    <input type="radio" value="B" name="post" id="zhuang" style="zoom: 220%" />
+                    <font style="color:red;">庄B&nbsp;&nbsp;</font>
+                    <input type="radio" value="P" name="post" id="xian" style="zoom: 220%" />
+                    <font style="color:#1e87f0;">闲P&nbsp;&nbsp;</font>
+                    <input type="radio" value="T" name="post" id="he" style="zoom: 220%" />
+                    <font style="color:green;">和T</font>
+                </div>
+                <div
+                    class="p_tl uk-margin-small-left uk-margin-small-right uk-card uk-card-default uk-card-body uk-padding-small uk-h2">
+                    <input type="checkbox" value="BP" name="zhuangdui" id="zhuanngdui" style="zoom: 220%" />
+                    <font style="color:red;">庄对BP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</font>
+                    <input type="checkbox" value="PP" name="xiandui" id="xiandui" style="zoom: 220%" />
+                    <font style="color:#1e87f0;">闲对PP</font>
+                </div>
+                <div
+                    class="p_tl uk-margin-small-left uk-margin-small-right uk-card uk-card-default uk-card-body uk-padding-small uk-h1">
+                    <span>开奖倒计时</span>
+                </div>
+            </div>
+            <div class="uk-width-1-2">
+                <div
+                    class="p_tl uk-margin-small-left uk-margin-small-right uk-margin-small-top uk-card uk-card-default uk-card-body uk-padding-small uk-h1">
+                    <input type="reset" value="提交Input" name="dalu" class="uk-margin-larger-left uk-h1 uk-width-1-1"
+                        onclick="insert()" />
+                    <input type="reset" value="重置Reset" name="dalu" class="uk-margin-larger-right uk-h1 uk-width-1-1" />
+                </div>
+                <div
+                    class="p_tl uk-margin-small-left uk-margin-small-right uk-margin-small-top uk-card uk-card-default uk-card-body uk-padding-small">
+                    <button type="button" class="uk-h1 uk-width-1-1" onclick="del()">
+                        删除上一口
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div
+            class="p_tl uk-margin-small-left uk-margin-small-right uk-margin-small-top uk-card uk-card-default uk-card-body uk-padding-small uk-h1">
+            <button value="下一靴" class="uk uk-width-1-1 uk-h1" onclick="next()">
+                下一靴
+            </button>
+        </div>
+        <div class="uk-child-width-1-5@s uk-grid-small uk-text-center uk-margin-small-top uk-margin-small-bottom"
+            uk-grid>
+            <div>
+                <div class="uk-tile red uk-tile-default uk-padding-small">
+                    <p class="uk-h4 white">庄<span id="count_b"></span></p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-tile blue uk-tile-default uk-padding-small">
+                    <p class="uk-h4 white">闲<span id="count_p"></span></p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-tile green uk-tile-default uk-padding-small">
+                    <p class="uk-h4 white">和<span id="count_t"></span></p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-tile red uk-tile-default uk-padding-small">
+                    <p class="uk-h4 white">庄对<span id="count_bp"></span></p>
+                </div>
+            </div>
+            <div>
+                <div class="uk-tile blue uk-tile-default uk-padding-small">
+                    <p class="uk-h4 white">闲对<span id="count_pp"></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="table" id="tab1"></div>
+        <div class="table" id="tab2"></div>
+        <div class="table" id="tab3"></div>
+        <div class="uk-text-center uk-margin-small-top uk-margin-small-bottom uk-padding-remove" uk-grid>
+            <div class="uk-width-1-2">
+                <div id="tanlu_zhuang"
+                    class="b_tl uk-margin-small-left uk-margin-small-right uk-card uk-card-default uk-card-body uk-padding-small uk-padding-remove-horizontal">
+                    <span class="uk-icon uk-icon-image uk-margin-small-right uk-margin-small-left" style="
+                background-image: url('img/icon/red/b.svg');
+                width: 70px;
+                height: 70px;
+              "></span>
+                </div>
+            </div>
+            <div class="uk-width-1-2">
+                <div id="tanlu_xian"
+                    class="p_tl uk-margin-small-left uk-margin-small-right uk-card uk-card-default uk-card-body uk-padding-small uk-padding-remove-horizontal">
+                    <span class="uk-icon uk-icon-image uk-margin-small-right uk-margin-small-left" style="
+                background-image: url('img/icon/blue/p.svg');
+                width: 70px;
+                height: 70px;
+              "></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let canvas = document.getElementById("video-canvas");
+    let url = "ws://jd16888.vip:5001";
+    let player = new JSMpeg.Player(url, {
+        canvas: canvas,
+    });
+</script>
+<!-- Grid JS -->
+<script src="js/grid.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    //$("body").hide();
+    var data = [];
+    var zhupan_data = [];
+    var other_data = [];
+    var zt = true;
+    var xt = true;
+    fill_di_2("#tab1", "#tab2");
+    setInterval(() => {
+        $.ajax({
+            type: "GET",
+            url: "./data.php",
+            dataType: "json",
+            async: true,
+            success: function (reg) {
+                if (JSON.stringify(reg.list) !== JSON.stringify(data)) {
+                    // zhupan_up
+                    zhupan_data = zhupan_up(reg.list, 96, "#tab1");
+                    console.log(reg.list);
+                    // fill_smail_up
+                    other_data = fill_smail_up(reg.list, 0, 32, "#tab2");
+                    //console.log(reg.list);
+                    //count_total
+                    var count = count_judge(reg.list);
+                    $("#count_b").html(count[0]);
+                    $("#count_p").html(count[1]);
+                    $("#count_t").html(count[2]);
+                    $("#count_bp").html(count[3]);
+                    $("#count_pp").html(count[4]);
+                    if (reg.list) {
+                        var tanlu = tanlu_new(reg.list);
+                        $("#tanlu_zhuang").html(`
+                                <span class="uk-icon uk-icon-image uk-margin-small-right uk-margin-small-left" style="background-image: url('img/icon/red/b.svg'); width: 70px; height: 70px"></span>
+                                <span class="uk-icon uk-icon-image uk-margin-small-right uk-margin-small-left" style="background-image: url('img/icon/dayanzai_%24%7btanlu%5b0%5d%5b0%5d%7d.html'); width: 70px; height: 70px"></span>
+                                <span class="uk-icon uk-icon-image uk-margin-small-right uk-margin-small-left" style="background-image: url('img/icon/xiaolu_%24%7btanlu%5b0%5d%5b1%5d%7d.html'); width: 70px; height: 70px"></span>
+                                <span class="uk-icon uk-icon-image uk-margin-small-right uk-margin-small-left" style="background-image: url('img/icon/xiaoqiang_%24%7btanlu%5b0%5d%5b2%5d%7d.html'); width: 70px; height: 70px"></span>
+                            `);
+                        $("#tanlu_xian").html(`
+                                <span class="uk-icon uk-icon-image uk-margin-small-right uk-margin-small-left" style="background-image: url('img/icon/blue/p.svg'); width: 70px; height: 70px"></span>
+                                <span class="uk-icon uk-icon-image uk-margin-small-right uk-margin-small-left" style="background-image: url('img/icon/dayanzai_%24%7btanlu%5b1%5d%5b0%5d%7d.html'); width: 70px; height: 70px"></span>
+                                <span class="uk-icon uk-icon-image uk-margin-small-right uk-margin-small-left" style="background-image: url('img/icon/xiaolu_%24%7btanlu%5b1%5d%5b1%5d%7d.html'); width: 70px; height: 70px"></span>
+                                <span class="uk-icon uk-icon-image uk-margin-small-right uk-margin-small-left" style="background-image: url('img/icon/xiaoqiang_%24%7btanlu%5b1%5d%5b2%5d%7d.html'); width: 70px; height: 70px"></span>
+                            `);
+                    }
+                    data = [].concat(reg.list);
+                }
+                $("#board").html(reg.board);
+                $("#game").html(reg.game);
+                $("#bet").html(reg.bet);
+                $("body").show();
+            },
+        });
+    }, 3000);
+    $("#tanlu_zhuang").click(function () {
+        //console.log(xt, zt);
+        if (zt && data) {
+            xt = false;
+            zt = false;
+            var new_data = [].concat(data);
+            new_data.push(1);
+            newData = get_all(new_data);
+            var n = 0;
+            var t = setInterval(() => {
+                if (n < 6 && n % 2 == 0) {
+                    if (new_data.length <= 96) {
+                        var result = diff1(zhupan_data, newData[0]);
+                        zhupan_update(result, "#tab1");
+                    } else {
+                        zhupan_up(new_data, 96, "#tab1");
+                    }
+                    if (other_data[0].length < 32) {
+                        update_dalu2(data, new_data, 0, 0, "#tab2");
+                        other_update_new(data, new_data, 0, 6, "dayanzai", 1, "#tab2");
+                        other_update_new(data, new_data, 0, 9, "xiaolu", 2, "#tab2");
+                        other_update_new(data, new_data, 16, 9, "xiaoqiang", 3, "#tab2");
+                    } else {
+                        fill_smail_up(new_data, 0, 32, "#tab2");
+                    }
+                    n++;
+                } else if (n < 6 && n % 2 != 0) {
+                    if (new_data.length <= 96) {
+                        var result = diff1(newData[0], newData[0]);
+                        zhupan_update(result, "#tab1");
+                    } else {
+                        zhupan_up(data, 96, "#tab1");
+                    }
+                    if (other_data[0].length < 32) {
+                        update_dalu2(new_data, data, 0, 0, "#tab2");
+                        other_update_new(new_data, data, 0, 6, "dayanzai", 1, "#tab2");
+                        other_update_new(new_data, data, 0, 9, "xiaolu", 2, "#tab2");
+                        other_update_new(new_data, data, 16, 9, "xiaoqiang", 3, "#tab2");
+                    } else {
+                        fill_smail_up(data, 0, 32, "#tab2");
+                    }
+                    n++;
+                } else {
+                    zt = true;
+                    xt = true;
+                    clearInterval(t);
+                }
+            }, 500);
+        }
+    });
+    $("#tanlu_xian").click(function () {
+        // console.log(xt, zt);
+        if (xt && data) {
+            xt = false;
+            zt = false;
+            var new_data = [].concat(data);
+            new_data.push(5);
+            newData = get_all(new_data);
+            var n = 0;
+            var t = setInterval(() => {
+                if (n < 6 && n % 2 == 0) {
+                    if (new_data.length <= 96) {
+                        var result = diff1(zhupan_data, newData[0]);
+                        zhupan_update(result, "#tab1");
+                    } else {
+                        zhupan_up(new_data, 96, "#tab1");
+                    }
+                    if (other_data[0].length < 32) {
+                        update_dalu2(data, new_data, 0, 0, "#tab2");
+                        other_update_new(data, new_data, 0, 6, "dayanzai", 1, "#tab2");
+                        other_update_new(data, new_data, 0, 9, "xiaolu", 2, "#tab2");
+                        other_update_new(data, new_data, 16, 9, "xiaoqiang", 3, "#tab2");
+                    } else {
+                        fill_smail_up(new_data, 0, 32, "#tab2");
+                    }
+                    n++;
+                } else if (n < 6 && n % 2 != 0) {
+                    if (new_data.length <= 96) {
+                        var result = diff1(newData[0], newData[0]);
+                        zhupan_update(result, "#tab1");
+                    } else {
+                        zhupan_up(data, 96, "#tab1");
+                    }
+                    if (other_data[0].length < 32) {
+                        update_dalu2(new_data, data, 0, 0, "#tab2");
+                        other_update_new(new_data, data, 0, 6, "dayanzai", 1, "#tab2");
+                        other_update_new(new_data, data, 0, 9, "xiaolu", 2, "#tab2");
+                        other_update_new(new_data, data, 16, 9, "xiaoqiang", 3, "#tab2");
+                    } else {
+                        fill_smail_up(data, 0, 32, "#tab2");
+                    }
+                    n++;
+                } else {
+                    zt = true;
+                    xt = true;
+                    clearInterval(t);
+                }
+            }, 500);
+        }
+    });
+</script>
+<script type="text/javascript">
+    function insert() {
+        console.log($("#post1").serialize())
+        var data = $("#post1").serialize();
+        if (data == "") {
+            alert("提交不能为空:error");
+            return false;
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "./post.php",
+                dataType: "text",
+                async: false,
+                data: $("#post1").serialize(),
+                success: function (msg) {
+
+                    alert("提交成功");
+
+
+                },
+
+                error: function (x, e) {
+
+                    alert("提交失败"
+
+                        +
+                        x.responseText);
+                },
+            })
+        }
+    }
+</script>
+<script type="text/javascript">
+    function del() {
+        $.ajax({
+            type: "GET",
+            url: "./del.php",
+            success: function (msg) { },
+
+            error: function (x, e) {
+
+                alert("删除失败"
+
+                    +
+                    x.responseText);
+
+            },
+        });
+        if ($.ajax) {
+            alert("删除成功")
+            location.reload();
+        }
+    }
+</script>
+<script type="text/javascript">
+    function next() {
+        $.ajax({
+            type: "GET",
+            url: "./next.php",
+            success: function (msg) { },
+            error: function (x, e) {
+                alert("失败" + x.responseText);
+
+            },
+        });
+        if ($.ajax) {
+            alert("进入成功，（点击删除上一口返回）");
+            location.reload();
+        }
+    }
+</script>
+<script>
+    var i = 1;
+
+    function show() {
+        var canvas = document.querySelector('canvas');
+        if (i % 2 != 0) {
+            canvas.style.display = 'block';
+        } else {
+            canvas.style.display = 'none';
+        }
+        i++;
+    }
+</script>
+
+
+<!-- Mirrored from tb.lva-online.vip/bac2/tb1.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 29 Mar 2026 07:08:15 GMT -->
+</html>
